@@ -1,4 +1,4 @@
-# Koa2-blog（There are problems can add qq group:725165362）
+# Koa2-blog
 node+koa2+mysql (Welcome star: https://github.com/wclimb/Koa2-blog)
 
 > Latest code is now changing，Please refer to the latest code，Added upload avatar、Pagination、Markdown syntax, etc.
