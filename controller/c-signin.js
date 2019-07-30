@@ -12,7 +12,6 @@ exports.getSignin = async (ctx) => {
 }
 
 exports.postSignin = async (ctx) => {
-    // console.log(JSON.stringify(ctx.request.body))
     let {name, password} = ctx.request.body
     await userModel.findDataByName(name)
         .then(result => {

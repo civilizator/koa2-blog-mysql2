@@ -20,6 +20,10 @@ use created database
 ```
 $ use nodesql;
 ```
+If unable to connect to database, then execute
+```
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345'
+```
 
 > database: nodesql  tables: users posts comment  (lib/mysql)
 
@@ -60,11 +64,16 @@ $ cd Koa2-blog
 ```
 $ npm i nodemon or npm i supervisor -g
 ```
+Check "nodemon". If "nodemon" is not recognized then specify path in variable environments. Find out path
+```
+npm config get prefix
+```
+Install dependencies
 ```
 $ npm i
 ```
 ```
-$ npm run dev(Running project)
+$ nodemon or npm run dev(Running project)
 ```
 ```
 $ npm test(Test items)

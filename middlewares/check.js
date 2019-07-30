@@ -3,7 +3,7 @@ module.exports = {
     // Already logged in
     checkNotLogin: (ctx) => {
         if (ctx.session && ctx.session.user) {
-            // ctx.redirect('/posts')
+            ctx.redirect('/posts')
             return false
         }
         return true

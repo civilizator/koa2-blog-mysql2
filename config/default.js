@@ -1,11 +1,11 @@
 const config = {
     port: 3000,
     database: {
-        DATABASE: 'nodesql',
-        USERNAME: 'root',
-        PASSWORD: '12345',
-        PORT: '3306',
-        HOST: 'localhost'
+          DATABASE: 'nodesql'
+        , USERNAME: 'root'
+        , PASSWORD: '12345'
+        , HOST: 'localhost'
+        , PORT: '3306'
     }
 }
 

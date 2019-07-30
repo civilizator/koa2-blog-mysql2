@@ -1,10 +1,10 @@
-const Koa = require('koa');
+const Koa = require('koa')
 const path = require('path')
-const bodyParser = require('koa-bodyparser');
-const ejs = require('ejs');
-const session = require('koa-session-minimal');
-const MysqlStore = require('koa-mysql-session');
-const config = require('./config/default.js');
+const bodyParser = require('koa-bodyparser')
+const ejs = require('ejs')
+const session = require('koa-session-minimal')
+const MysqlStore = require('koa-mysql-session')
+const config = require('./config/default.js')
 const router = require('koa-router')
 const views = require('koa-views')
 // const koaStatic = require('koa-static')
@@ -14,10 +14,11 @@ const app = new Koa()
 
 // Session storage configuration
 const sessionMysqlConfig = {
+    database: config.database.DATABASE,
     user: config.database.USERNAME,
     password: config.database.PASSWORD,
-    database: config.database.DATABASE,
     host: config.database.HOST,
+    port: config.database.PORT
 }
 
 // Configuring session middleware
