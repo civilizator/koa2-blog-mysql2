@@ -66,11 +66,11 @@ $ npm i nodemon
 ```
 or
 ```
-& npm i supervisor -g
+$ npm i supervisor -g
 ```
 > Check "nodemon". If "nodemon" is not recognized then specify path in variable environments. Find out path
 ```
-& npm config get prefix
+$ npm config get prefix
 ```
 
 Install dependencies
