@@ -62,7 +62,11 @@ $ git clone https://github.com/wclimb/Koa2-blog.git
 $ cd Koa2-blog
 ```
 ```
-$ npm i nodemon or npm i supervisor -g
+$ npm i nodemon
+```
+or
+```
+npm i supervisor -g
 ```
 Check "nodemon". If "nodemon" is not recognized then specify path in variable environments. Find out path
 ```
@@ -72,8 +76,13 @@ Install dependencies
 ```
 $ npm i
 ```
+Running server
 ```
-$ nodemon or npm run dev(Running project)
+$ nodemon
+```
+ or
+```
+$ npm run dev
 ```
 ```
 $ npm test(Test items)
