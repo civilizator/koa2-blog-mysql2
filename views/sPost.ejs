@@ -1,0 +1,182 @@
+<%- include("header",{type:''}) %>
+	<div class="container">
+		<ul class="posts spost">
+			<li>
+				<div class="author">
+					<span title="<%= posts.name %>"><a href="/posts?author=<%= posts.name %> ">author: <%= posts.name %></a></span>
+					<span>Number of comments：<%= posts.comments %></span>
+					<span>Pageviews：<%= posts.pv %></span>
+				</div>
+				<div class="comment_pv">
+					<span><%= posts.moment %></span>
+				</div>
+				<a href="/posts/<%= posts.id %>">
+					<div class="title">
+						<img class="userAvator" src="../images/<%= posts.avator %>" alt="avator">
+						<%- posts.title %>
+					</div>
+					<div class="content markdown">
+						<%- posts.content %>
+					</div>
+				</a>
+				<div class="edit">
+					<% if(session && session.user ===  posts.name  ){ %>
+					<p><a href="<%= posts['id'] %>/edit">edit</a></p>
+					<p><a class="delete_post">delete</a></p>
+					<% } %>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="comment_wrap">
+
+		<% if(session.user){ %>
+		<form class="form" method="post" action="/<%= posts.id %>">
+			<textarea id="spContent" name="content" cols="82"></textarea>
+			<div class="submit">Leave a message</div>
+		</form>
+		<% } else{ %>
+			<p class="tips">You can comment after you log in.</p>
+		<% } %>
+		<% if (commentPageLength > 0) { %>
+		<div class="comment_list markdown">
+			<% pageOne.forEach(function(res){ %>
+				<div class="cmt_lists">
+					<div class="cmt_content">
+						<div class="userMsg">
+							<img src="../images/<%= res['avator'] %>" alt="avator"><span><%= res['name'] %></span>
+						</div>
+						<div class="cmt_detail">
+							<%- res['content'] %>
+						</div>
+						<span class="cmt_time"><%= res['moment'] %></span>
+						<span class="cmt_name">
+							<% if(session && session.user ===  res['name']){ %>
+								<a class="delete_comment" href="javascript:delete_comment(<%= res['id'] %>);"> delete</a>
+							<% } %>
+						</span>
+					</div>
+				</div>
+			<% }) %>
+		</div>	
+		<% } else{ %>
+			<p class="tips">No comments yet, hurry and comment！</p>
+		<% } %>
+		<div style="margin-top: 30px" class="pagination" id="page"></div>	
+	</div>
+	<script src="/pagination.js"></script>
+	<script>
+		var userName = "<%- session.user %>"
+		pagination({
+			selector: '#page',
+			totalPage: <%= commentPageLength %>,
+			currentPage: 1,
+			prev: 'Previous page',
+			next: 'Next page',
+			first: true,
+			last: true,
+			showTotalPage:true,
+			count: 2//The number shown in front of the current page
+		},function(val){
+			// current page
+			var _comment = ''
+			$.ajax({
+				url: "<%= posts.id %>/commentPage",
+				type: 'POST',
+				data:{
+					page: val
+				},
+				cache: false,
+				success: function (msg) {
+					//console.log(msg)
+					_comment = ''
+					if (msg != 'error') {
+						$('.comment_list').html(' ')
+						$.each(msg,function(i,val){
+							//console.log(val.content)
+							_comment += '<div class=\"cmt_lists\"><div class=\"cmt_content\"><div class=\"userMsg\"><img src = \"../images/'+ val.avator +'\" alt=\"avator\"><span>'+ val.name +'</span></div ><div class="cmt_detail">'+ val.content + '</div><span class=\"cmt_time\">'+ val.moment +'</span><span class=\"cmt_name\">';
+								if (val.name == userName) {
+									_comment += '<a class=\"delete_comment\" href=\"javascript:delete_comment('+ val.id +');\"> delete</a>'
+								}
+							_comment += '</span></div></div>'
+						})
+						$('.comment_list').append(_comment)
+					}else{
+						alert('Pagination does not exist')
+					} 
+				}
+			})
+		
+		})
+		
+		// Delete article
+		$('.delete_post').click(function() {
+			$.ajax({
+				url: "<%= posts.id %>/remove",
+				type: 'POST',
+				cache: false,
+				success: function (msg) {
+					if (msg.code == 200) {
+						fade('Delete article successfully')
+						setTimeout(function() {
+							window.location.href = "/posts"
+						}, 1000)
+					} else {
+						fade('Delete article failed')
+					}
+				}
+			})
+		})
+		// comment
+		var isAllow = true
+		$('.submit').click(function(){
+			if (!isAllow) return
+			isAllow = false
+			if ($('textarea').val().trim() == '') {
+				fade('Please enter a comment！')
+				isAllow = true
+			}else{
+				$.ajax({
+					url: '/' + location.pathname.split('/')[2],
+					data:$('.form').serialize(),
+					type: "POST",
+					cache: false,
+					dataType: 'json',
+					success: function (msg) {
+						if (msg.code == 200) {
+							fade('Post a message successfully')
+							setTimeout(()=>{
+								isAllow = true
+								window.location.reload()
+							},1500)  	
+						}
+					},
+					error: function () {
+						alert('abnormal');
+					}
+				})
+			}
+		})
+		// Delete comment
+		function delete_comment(id) {
+			$.ajax({
+				url: "<%= posts.id %>/comment/" + id + "/remove",
+				type: 'POST',
+				cache: false,
+				success: function (msg) {
+					if (msg.code == 200) {
+						fade('Delete message successfully')
+						setTimeout(function() {
+							location.reload()
+						}, 1000)
+					} else {
+						fade('Delete message failed');
+					} 
+				},
+				error: function () {
+					alert('abnormal')
+				}
+			})
+		}
+	</script>
+<% include footer %>

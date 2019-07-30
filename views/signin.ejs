@@ -1,0 +1,55 @@
+<%- include("header", {type:'signin'}) %>
+
+<div class="container">
+    <form class="form create" method="post ">
+        <div>
+            <label>username：</label>
+            <input placeholder="username" type="text" name="name">
+        </div>
+        <div>
+            <label>password：</label>
+            <input placeholder="password" type="password" name="password">
+        </div>
+        <div class="submit">log in</div>
+    </form>
+</div>
+<script>
+    $(window).keyup(function (e) {
+        // console.log(e.keyCode)
+        if (e.keyCode === 13) {
+            $('.submit').click()
+        }
+    })
+    $('.submit').click(function () {
+        if ($('input[name=name]').val().trim() === '' || $('input[name=password]').val().trim() === '') {
+            fade('Please enter username or password')
+        } else {
+            console.log($('.form').serialize())
+            $.ajax({
+                url: "/signin",
+                data: $('.form').serialize(),
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                success: function (msg) {
+                    if (msg.code != 200) {
+                        $('input').val('')
+                        fade('Wrong user name or password!')
+                    } else {
+                        fade('Login successful')
+                        setTimeout(function () {
+                            window.location.href = "/posts"
+                        }, 1500)
+                    }
+                },
+                error: function () {
+                    alert('abnormal');
+                }
+            })
+        }
+    })
+</script>
+
+<% include footer %>
+
+	

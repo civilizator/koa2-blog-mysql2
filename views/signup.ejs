@@ -1,0 +1,110 @@
+<%- include("header",{type:'signup'}) %>
+	<div class="container">
+		<form class="form create" method="post">
+			<div>
+				<label>username：</label>
+				<input placeholder="please enter user name" type="text" name="name">
+			</div>
+			<div>
+				<label>password：</label>
+				<input placeholder="Please enter your password" class="password" type="password" name="password">
+			</div>
+			<div>
+				<label>Repeat the password：</label>
+				<input placeholder="Please confirm your password" class="repeatpass" type="password" name="repeatpass">
+			</div>
+			<div>
+				<label>Upload avatar：</label>
+				<input type="file" name="avator" id="avator">
+				<input type="hidden" id="avatorVal">
+				<img class="preview" alt="Preview avatar">
+			</div>
+			<div class="submit">registered</div>
+		</form>
+	</div>
+	<script>
+		$(window).keyup(function (e) {
+			//console.log(e.keyCode)
+			if (e.keyCode == 13) {
+				$('.submit').click()
+			}
+		})
+		$('#avator').change(function(){
+			if (this.files.length != 0) {
+				var file = this.files[0],
+					reader = new FileReader();
+				if (!reader) {
+					this.value = '';
+					return;
+				};
+				console.log(file.size,file.type)
+				// if (file.size >= 1024 * 1024 / 2) {
+				// 	fade("Please upload an image smaller than 512kb!")
+				// 	return 
+				// }
+				if (!/image/g.test(file.type)) {
+					fade("Please upload an image file!")
+					$('#avatorVal').val('')
+					$('form .preview').attr('src', '')
+					$('form .preview').fadeOut()
+					return 
+				}
+				reader.onload = function (e) {
+					this.value = '';
+					$('form .preview').attr('src', e.target.result)
+					$('form .preview').fadeIn()
+					 var image = new Image();
+					 image.onload = function(){
+						 var canvas = document.createElement('canvas');
+						 var ctx = canvas.getContext("2d");
+						 canvas.width = 100;
+						 canvas.height = 100;
+						 ctx.clearRect(0, 0, 100, 100);
+						 ctx.drawImage(image, 0, 0, 100, 100);
+						 var blob = canvas.toDataURL("image/png");
+						 $('#avatorVal').val(blob)
+					 }
+					 image.src = e.target.result
+				};
+				reader.readAsDataURL(file);
+			};
+		})
+		$('.submit').click(function(){
+			// console.log($('.form').serialize())
+			if ($('input[name=name]').val().trim() == '') {
+				fade('please enter user name！')
+			}else if($('input[name=name]').val().match(/[<'">]/g)){
+				fade('Please enter legal characters！')
+			}else if($('#avatorVal').val() == ''){
+				fade('Please upload an avatar！')
+			}else{
+				$.ajax({
+					url: "/signup",
+					data: {
+						name: $('input[name=name]').val(),
+						password: $('input[name=password]').val(),
+						repeatpass: $('input[name=repeatpass]').val(),
+						avator: $('#avatorVal').val(),
+					},
+					type: "POST",
+					cache: false,
+					dataType: 'json',
+					success: function (msg) {
+					   if(msg.code == 200){
+						   fade('registration success')
+						   setTimeout(function(){
+							   window.location.href = "/signin"	  
+						   },1000)
+
+					   }else{
+ 							fade(msg.message)
+					   }
+					},
+					error: function () {
+						alert('abnormal');
+					}
+				})			
+			}
+		})	
+	</script>
+<% include footer %>

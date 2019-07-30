@@ -1,0 +1,45 @@
+<%- include("header",{type:'create'}) %>
+<div class="container">
+	<form style="width:100%" method="post" class="form create">
+		<div>
+			<label>Name：</label>
+			<input placeholder="Please enter a Name" type="text" name="title">
+		</div>
+		<div>
+			<label>content：</label>
+			<textarea placeholder="Please enter the content" name="content" id="" cols="42" rows="10"></textarea>
+		</div>
+		<div class="submit">Publish</div>
+	</form>
+</div>
+<script>
+    $('.submit').click(function(){
+        if ($('input[name=title]').val().trim() == '') {
+            fade('Please enter a title')
+        }else if ($('textarea').val().trim() == '') {
+            fade('Please enter the content')
+        }else{          
+            $.ajax({
+                url: "/create",
+                data: $('.form').serialize(),
+                type: "POST",
+                cache: false,
+                dataType: 'json',
+                success: function (msg) {
+                    if (msg.code == 200) {
+                        fade('Published successfully')
+                        setTimeout(function(){
+                            location.href = "/posts"
+                        },1000)
+                    }else{
+                        fade('Post failed')
+                    }
+                },
+                error: function () {
+                    alert('abnormal');
+                }
+            })			
+        }   
+    })
+</script>
+<% include footer %>

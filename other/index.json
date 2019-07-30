@@ -1,0 +1,33 @@
+{
+  "request":{
+    "method":"POST",
+    "url":"\/create",
+    "header":{
+      "host":"127.0.0.1:3000", "connection":"keep-alive", "content-length":"52", "accept":"application\/json,text\/javascript,*\/*; q=0.01",
+      "origin":"http:\/\/127.0.0.1:3000",
+      "x-requested-with":"XMLHttpRequest",
+      "user-agent":"Mozilla\/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit\/537.36 (KHTML,like Gecko) Chrome\/75.0.3770.142 Safari\/537.36",
+      "content-type":"application\/x-www-form-urlencoded; charset=UTF-8",
+      "referer":"http:\/\/127.0.0.1:3000\/create",
+      "accept-encoding":"gzip,deflate,br",
+      "accept-language":"en-US,en;q=0.9,ru;q=0.8",
+      "cookie":"csrftoken=OGY6qp7x9IzGQNp5uK5FIWXgqsZKnto7MCiDYoPWY02jMeJVESbXnUHF2gqdKAUi; USER_SID=YT7rTtmcyEuavqButdCNvujsrHfzikcX"
+    }
+  },
+  "response":{
+    "status":200,
+    "message":"OK",
+    "header":{
+      "content-type":"application\/json; charset=utf-8"
+    }
+  },
+  "app":{
+    "subdomainOffset":2,
+    "proxy":false,
+    "env":"development"
+  },
+  "originalUrl":"\/create",
+  "req":"<original node req>",
+  "res":"<original node res>",
+  "socket":"<original node socket>"
+}
