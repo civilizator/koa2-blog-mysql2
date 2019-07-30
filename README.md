@@ -20,13 +20,13 @@ use created database
 ```
 $ use nodesql;
 ```
-If unable to connect to database, then execute
+
+> If unable to connect to database, then execute
 ```
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345'
 ```
 
-> database: nodesql  tables: users posts comment  (lib/mysql)
-
+#### database: nodesql  tables: users posts comment  (lib/mysql)
 
 | users   | posts   | comment   |
 | :----:  | :----:  | :----:    |
@@ -66,12 +66,13 @@ $ npm i nodemon
 ```
 or
 ```
-npm i supervisor -g
+& npm i supervisor -g
 ```
-Check "nodemon". If "nodemon" is not recognized then specify path in variable environments. Find out path
+> Check "nodemon". If "nodemon" is not recognized then specify path in variable environments. Find out path
 ```
-npm config get prefix
+& npm config get prefix
 ```
+
 Install dependencies
 ```
 $ npm i
