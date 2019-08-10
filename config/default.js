@@ -2,7 +2,7 @@ const config = {
     port: 3000,
     database: {
           DATABASE: 'nodesql'
-        , USERNAME: 'root'
+        , USERNAME: 'nodeuser'
         , PASSWORD: '12345'
         , HOST: 'localhost'
         , PORT: '3306'

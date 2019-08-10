@@ -1,5 +1,5 @@
 {
-  "name": "koa2-blog",
+  "name": "koa2-blog-mysql2",
   "version": "1.0.0",
   "description": "blog",
   "main": "index.js",
@@ -16,22 +16,22 @@
   "dependencies": {
     "config-lite": "^2.0.0",
     "ejs": "^2.5.6",
-    "koa": "^2.3.0",
+    "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.0",
     "koa-mysql-session": "^0.0.2",
-    "koa-router": "^7.2.1",
+    "koa-router": "^7.4.0",
     "koa-session-minimal": "^3.0.4",
-    "koa-static": "^4.0.0",
+    "koa-static": "^5.0.0",
     "koa-static-cache": "^5.1.1",
     "koa-views": "^6.0.2",
-    "markdown-it": "^8.4.0",
+    "markdown-it": "^9.0.1",
     "md5": "^2.2.1",
     "moment": "^2.18.1",
     "mysql2": "^1.6.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^4.0.1",
+    "mocha": "^6.2.0",
     "supervisor": "^0.12.0"
   }
 }
