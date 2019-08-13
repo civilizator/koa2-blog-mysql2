@@ -13,7 +13,7 @@ exports.getSignUp = async (ctx) => {
 }
 
 exports.postSignUp = async (ctx) => {
-    let { name, password, repeatpass, avator } = ctx.request.body
+    let { name, password, repeatpass, avatar } = ctx.request.body
     console.log(typeof password)
     await userModel.findDataCountByName(name)
         .then(async (result) => {
@@ -29,13 +29,13 @@ exports.postSignUp = async (ctx) => {
                     code: 500,
                     message: 'Inconsistent password entered twice'
                 }
-            } else if(avator && avator.trim() === ''){
+            } else if(avatar && avatar.trim() === ''){
                 ctx.body = {
                     code: 500,
                     message: 'Please upload an avatar'
                 }
             } else {
-                let base64Data = avator.replace(/^data:image\/\w+;base64,/, ""),
+                let base64Data = avatar.replace(/^data:image\/\w+;base64,/, ""),
                     dataBuffer = new Buffer(base64Data, 'base64'),
                     getName = Number(Math.random().toString().substr(3)).toString(36) + Date.now(),
                     upload = await new Promise((reslove, reject) => {

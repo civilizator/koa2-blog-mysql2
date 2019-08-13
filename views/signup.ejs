@@ -15,7 +15,7 @@
         </div>
         <div>
             <label>Upload avatar</label>
-            <input type="file" name="avator" id="avator">
+            <input type="file" name="avatar" id="avatar">
             <input type="hidden" id="avatorVal">
             <img class="preview" alt="Preview avatar">
         </div>
@@ -29,7 +29,7 @@
             $('.submit').click()
         }
     })
-    $('#avator').change(function () {
+    $('#avatar').change(function () {
         if (this.files.length != 0) {
             var file = this.files[0],
                 reader = new FileReader();
@@ -85,7 +85,7 @@
                     name: $('input[name=name]').val(),
                     password: $('input[name=password]').val(),
                     repeatpass: $('input[name=repeatpass]').val(),
-                    avator: $('#avatorVal').val(),
+                    avatar: $('#avatorVal').val(),
                 },
                 type: "POST",
                 cache: false,

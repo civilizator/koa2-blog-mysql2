@@ -118,7 +118,7 @@ exports.postCreate = async (ctx) => {
         id = ctx.session.id,
         name = ctx.session.user,
         time = moment().format('YYYY-MM-DD HH:mm:ss'),
-        avator
+        avatar
 
     // Now use markdown without separate escaping
     let newContent = content.replace(/[<">']/g, (target) => {
@@ -141,10 +141,10 @@ exports.postCreate = async (ctx) => {
 
     await userModel.findUserData(ctx.session.user)
         .then(res => {
-            avator = res[0]['avator']
+            avatar = res[0]['avatar']
         })
 
-    await userModel.insertPost([name, newTitle, md.render(content), content, id, time, avator])
+    await userModel.insertPost([name, newTitle, md.render(content), content, id, time, avatar])
         .then(() => {
             ctx.body = {
                 code: 200,
@@ -165,12 +165,12 @@ exports.postComment = async ctx => {
         content = ctx.request.body.content,
         postId = ctx.params.postId,
         time = moment().format('YYYY-MM-DD HH:mm:ss'),
-        avator;
+        avatar;
     await userModel.findUserData(ctx.session.user)
         .then(res => {
-            avator = res[0]['avator']
+            avatar = res[0]['avatar']
         })
-    await userModel.insertComment([name, md.render(content), time, postId, avator])
+    await userModel.insertComment([name, md.render(content), time, postId, avatar])
     await userModel.addPostCommentCount(postId)
         .then(() => {
             ctx.body = {
